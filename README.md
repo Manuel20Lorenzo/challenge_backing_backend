@@ -72,7 +72,27 @@ http://localhost:3000/api/docs
 ### Endpoints principales
 - POST /api/auth/register - Registrar usuario
 - POST /api/auth/login - Login (genera token JWT)
-- GET /api/moneda - Lista monedas (requiere token)
-- GET /api/criptomoneda - Lista criptomonedas (requiere token)
-- POST /api/criptomoneda - Crear criptomoneda (requiere token)
-- PUT /api/criptomoneda/:id - Actualizar criptomoneda (requiere token)
+#### Requiere Token
+- GET /api/moneda: lista todas las monedas.
+- POST /api/moneda: crear nueva moneda.
+- GET /api/criptomoneda: lista criptomonedas con su relación de moneda.
+- GET /api/criptomoneda?moneda=XYZ: lista criptomonedas con su relación de
+moneda, en donde se obtenga la criptomoneda que esté relacionada con
+la moneda XYZ.
+- POST /api/criptomonedas: crear criptomoneda asignada a una moneda.
+- PUT /api/criptomonedas/:id: actualizar datos de la criptomoneda.
+
+## Ejecutar base de datos con Docker Compose
+Para facilitar la gestión de la base de datos PostgreSQL, puedes usar Docker Compose solo para levantar la base de datos en un contenedor.
+
+
+1. Pre-requisitos
+- Tener instalado Docker
+- Tener instalado Docker Compose
+
+2. Levantar el contenedor
+Ejecuta el siguiente comando en la raíz del proyecto (donde está el archivo docker-compose.yml):
+```
+bash
+docker-compose up -d
+```
