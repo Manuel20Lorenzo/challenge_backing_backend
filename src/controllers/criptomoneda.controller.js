@@ -1,4 +1,4 @@
-import { getAll, create, getForMoneda } from '../services/criptomoneda.service.js'
+import { getAll, create, getForMoneda, update } from '../services/criptomoneda.service.js'
 
 
 export const criptomonedaController = {
@@ -20,11 +20,9 @@ export const criptomonedaController = {
                 data: criptos,
             });
         } catch (error) {
-            if (error.code === 'INVALID_CREDENTIALS') {
-                return res.status(400).json({ message: error.message });
-            }
+            
             console.error('Error al loguear usuario:', error);
-            res.status(500).json({ message: 'Error interno del servidor' });
+            res.status(error.code || 500).json({ message: error.message || 'Error interno del servidor' });
         }
     },
 
@@ -40,16 +38,10 @@ export const criptomonedaController = {
             });
 
         } catch (error) {
-            if (error.code === 'EXISTE_CRYPT') {
-                return res.status(302).json({ message: error.message });
-            }
-
-            if (error.code === 'EXISTE_CRYPT') {
-                return res.status(400).json({ message: error.message });
-            }
+            
 
             console.error('Error al registrar usuario:', error);
-            res.status(500).json({ message: 'Error interno del servidor' });
+            res.status(error.code || 500).json({ message: error.message || 'Error interno del servidor' });
         }
         //res.send('Crear usuario');
     },
@@ -58,7 +50,7 @@ export const criptomonedaController = {
             const { id } = req.params;
             const { nombre, simbolo, monedas } = req.body;
 
-            const criptomonedaActualizada = await criptomonedaService.update(id, {
+            const criptomonedaActualizada = await update(id, {
                 nombre,
                 simbolo,
                 monedas,
@@ -69,10 +61,11 @@ export const criptomonedaController = {
                 data: criptomonedaActualizada,
             });
         } catch (error) {
-            console.error('Error al actualizar criptomoneda:', error);
-            return res.status(error.status || 500).json({
+
+            return res.status(error.code || 500).json({
                 message: error.message || 'Error interno del servidor',
             });
+
         }
 
 

@@ -21,12 +21,9 @@ export const monedaController = {
                 data: moneda,
             });
         } catch (error) {
-            if (error.code === 'MONEDA_EXISTS') {
-                return res.status(400).json({ message: error.message });
-            }
 
             console.error('Error al registrar usuario:', error);
-            res.status(500).json({ message: 'Error interno del servidor' });
+            res.status(error.code || 500).json({ message: error.message || 'Error interno del servidor' });
         }
         //res.send('Crear usuario');
     }

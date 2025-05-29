@@ -7,11 +7,9 @@ export const authController = {
             const user = await loginUser({ email, password })
             return res.status(200).send(user)
         } catch (error) {
-            if (error.code === 'INVALID_CREDENTIALS') {
-                return res.status(400).json({ message: error.message });
-            }
+            
             console.error('Error al loguear usuario:', error);
-            res.status(500).json({ message: 'Error interno del servidor' });
+            res.status(error.code || 500).json({ message: error.message || 'Error interno del servidor' });
         }
     },
 

@@ -89,7 +89,7 @@ router.get('', authenticateToken, criptomonedaController.getAll);
  *                 type: array
  *                 items:
  *                   type: integer
- *                 example: [1, 2]
+ *                 example: [1]
  *     responses:
  *       201:
  *         description: Criptomoneda creada exitosamente
@@ -174,6 +174,6 @@ router.post('', authenticateToken, criptomonedaController.create);
  *       400:
  *         description: Error de validación o datos inválidos
  */
-router.put('/{id}', authenticateToken, criptomonedaController.update);
+router.put('/:id', authenticateToken, criptomonedaController.update);
 
 export default router;

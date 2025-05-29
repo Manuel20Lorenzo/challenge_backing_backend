@@ -5,9 +5,9 @@ const options = {
     definition: {
         openapi: '3.0.0',
         info: {
-            title: 'API de Usuarios',
+            title: 'API de Challenge Backing - Backend',
             version: '1.0.0',
-            description: 'Una API simple de ejemplo con Express y Swagger',
+            description: 'API REST para gestión de usuarios, monedas y criptomonedas con autenticación JWT.',
         },
         components: {
             securitySchemes: {

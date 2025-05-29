@@ -60,7 +60,7 @@ router.get('', authenticateToken, monedaController.getAll);
  *                   type: string
  *                 codigo:
  *                   type: string
- *       400:
+ *       409:
  *         description: Moneda con ese nombre o código ya existe
  *       401:
  *         description: No autorizado (token no válido o ausente)

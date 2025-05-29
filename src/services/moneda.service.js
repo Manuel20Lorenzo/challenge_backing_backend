@@ -25,7 +25,7 @@ export const create = async ({ nombre, codigo }) => {
 
   if (monedaExistente) {
     const error = new Error('Codigo o moneda ya existe ');
-    error.code = 'MONEDA_EXISTS';
+    error.code = 409;
     throw error;
   }
 

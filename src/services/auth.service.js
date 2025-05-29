@@ -12,7 +12,7 @@ export const registerUser = async ({ email, password }) => {
   const existingUser = await userRepo.findOneBy({ email });
   if (existingUser) {
     const error = new Error('El usuario ya existe');
-    error.code = 'USER_EXISTS';
+    error.code = 409;
     throw error;
   }
 
@@ -38,7 +38,7 @@ export const loginUser = async ({ email, password }) => {
   if (!emailValidate) {
     console.error('CORREO INVALIDO')
     const error = new Error('Usuario o contraseña incorrectos');
-    error.code = 'INVALID_CREDENTIALS';
+    error.code = 401;
     throw new error
   }
   console.log('User Validate Email:', emailValidate, password)
@@ -47,7 +47,7 @@ export const loginUser = async ({ email, password }) => {
   if (!validPassword) {
     console.error('CONTRASEÑA INVALIDA')
     const error = new Error('Usuario o contraseña incorrectos');
-    error.code = 'INVALID_CREDENTIALS';
+    error.code = 401;
     throw error;
   }
   const token = jwt.sign(

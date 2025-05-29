@@ -25,13 +25,15 @@ export const create = async ({ nombre, simbolo, monedaIds }) => {
   
   if (exists) {
     const error = new Error('La criptomoneda ya existe');
-    error.code = 'EXISTE_CRYPT'
+    error.code = 409 
     throw error
   }
   
   const monedas = await monedaRepo.findByIds(monedaIds);
   if (monedas.length === 0) {
-    throw new Error('No se encontraron monedas válidas');
+    const error = new Error('No se encontraron monedas válidas');
+    error.code = 400 
+    throw error
   }
 
   const newCripto = criptomonedaRepo.create({
@@ -58,4 +60,32 @@ export const getForMoneda = async (monedaParam) => {
     .getMany();
     
   return criptos;
+};
+
+
+export const update = async (id, { nombre, simbolo, monedas }) => {
+  const criptomoneda = await criptomonedaRepo.findOne({
+    where: { id },
+    relations: ['monedas'],
+  });
+
+  if (!criptomoneda) {
+    const error = new Error('Criptomoneda no encontrada');
+    error.code = 400;
+    throw error;
+  }
+
+  // Actualiza campos
+  if (nombre) criptomoneda.nombre = nombre;
+  if (simbolo) criptomoneda.simbolo = simbolo;
+
+  // Actualiza relación
+  if (Array.isArray(monedas)) {
+    const monedasRelacionadas = await monedaRepo.findByIds(monedas);
+    criptomoneda.monedas = monedasRelacionadas;
+  }
+
+  await criptomonedaRepo.save(criptomoneda);
+
+  return criptomoneda;
 };
