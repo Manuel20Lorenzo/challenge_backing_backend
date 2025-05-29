@@ -1,4 +1,4 @@
-### Challenge  BANKING TECHNOLOGIES CONSULTING,C.A. -  Backend
+# Challenge  BANKING TECHNOLOGIES CONSULTING,C.A. -  Backend
 API REST para gestión de usuarios, monedas y criptomonedas con autenticación JWT.
 
 
